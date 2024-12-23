@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grille 5x5 - Mélange de Couleurs</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 50px);
+      grid-gap: 5px;
+      margin-bottom: 20px;
+    }
+
+    .cell {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+      background-color: #fff;
+    }
+
+    .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .red { background-color: red; }
+    .blue { background-color: blue; }
+    .yellow { background-color: yellow; }
+    .green { background-color: green; }
+    .empty { background-color: transparent; }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bou-Boules</h1>
+
+  <div class="grid" id="grid"></div>
+  <button id="shuffleButton">Mélanger</button>
+
+  <script>
+    const grid = [
+      'r', 'r', 'r', 'r', 
+      'b', 'b', 'b', 'b', 
+      'y', 'y', 'y', 'y',
+      'g', 'g', 'g', 'g', 
+      '', '', '', '', '', '', '', '', ''
+    ];
+
+    const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
+
+    const renderGrid = () => {
+      const gridContainer = document.getElementById('grid');
+      gridContainer.innerHTML = '';
+      grid.forEach(color => {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+        if (color === 'r') circle.classList.add('red');
+        else if (color === 'b') circle.classList.add('blue');
+        else if (color === 'y') circle.classList.add('yellow');
+        else if (color === 'g') circle.classList.add('green');
+        else circle.classList.add('empty');
+        cell.appendChild(circle);
+        gridContainer.appendChild(cell);
+      });
+    };
+
+    document.getElementById('shuffleButton').addEventListener('click', () => {
+      shuffleArray(grid);
+      renderGrid();
+    });
+
+    // Initial rendering of the grid
+    renderGrid();
+  </script>
+
+</body>
+</html>
